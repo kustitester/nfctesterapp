@@ -5,17 +5,44 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
+    "scheme": "com.srknuu.nfctestaaja",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.srknuu.nfctestaaja",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NFCReaderUsageDescription": "This app uses NFC to read tags",
+        "NFCNDEFUsageDescription": "This app uses NFC to read NDEF formatted tags"
+      },
+      "entitlements": {
+        "com.apple.developer.nfc.readersession.formats": ["TAG"]
+      }
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.srknuu.nfctestaaja",
+      "permissions": [
+        "android.permission.NFC"
+      ],
+      "intentFilters": [
+        {
+          "action": "android.nfc.action.NDEF_DISCOVERED",
+          "data": {
+            "mimeType": "text/plain"
+          },
+          "category": "android.intent.category.DEFAULT"
+        }
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -23,7 +50,19 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "react-native-nfc-manager",
       "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": true
+          },
+          "android": {
+            "newArchEnabled": true
+          }
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -35,7 +74,16 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "5be6f6f2-3e79-4ee9-8b51-94928a8d96c7"
+      }
     }
   }
 }
